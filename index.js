@@ -26,6 +26,25 @@ app.get('/reclamos-estados', async (req, res) => {
     }
 })
 
+app.get('/reclamos-estados/:idReclamosEstado', async (req, res) => {
+    try{
+        const idReclamosEstado = req.params.idReclamosEstado;
+
+        const sql = 'SELECT * FROM reclamos_estado WHERE activo = 1 AND idReclamosEstado = ?';
+        const [result] = await conexion.query(sql, [idReclamosEstado]);
+
+        if (result.length === 0){
+            return res.status(404).json({
+                mensaje: 'No se encontro el estado.'
+            });
+        }
+
+        res.status(200).json(result);
+    } catch(err){
+        res.status(500).json({mensaje:'error interno'});
+    }
+})
+
 
 const puerto = process.env.PUERTO;
 app.listen(puerto, () => {
