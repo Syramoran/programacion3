@@ -136,7 +136,6 @@ app.post('/reclamos-estado', async (req, res) =>{
 });
 
 
-
 const puerto = process.env.PUERTO;
 app.listen(puerto, () => {
     console.log('ok');
